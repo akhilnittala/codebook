@@ -342,3 +342,7 @@ oc console > networking > routes > argocd-openshift-gitops-server - copy the rou
 ```
 
 35. login via keycloak > username and password as created in step-27 and 28, we need to able to successfully login and see argocd ui.
+
+# REFEREBCES:
+CODEBOOK: https://github.com/anandf/openshift-gitops-cookbook/tree/main/keycloak-integration
+ARGOCD UI KEYCLOAK INTEGRATION: https://argo-cd.readthedocs.io/en/stable/operator-manual/user-management/keycloak/
