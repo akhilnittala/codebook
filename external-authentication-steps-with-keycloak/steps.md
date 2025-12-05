@@ -7,4 +7,5 @@ oc get featuregate cluster -o json | jq -r '.status.featureGates[0].enabled[] | 
 ```
 
 If the response provided by the following command displays true, the cluster is eligible to leverage the External Authentication feature 
+
 2. once the cluster is ready login to the console and install openshift-gitops operator from operator hub.
