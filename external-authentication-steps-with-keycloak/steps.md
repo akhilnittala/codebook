@@ -262,7 +262,7 @@ oc get secret argocd-secret -n openshift-gitops -o jsonpath='{.data.oidc\.keyclo
 # create groups claimm, user, password in keycloak admin console
 24. In order for ArgoCD to provide the groups the user is in we need to configure a groups claim that can be included in the authentication token. To do this we'll start by creating a new Client Scope called groups.
 
-  keycloak admin console left tab > client scopes > create client scope > name (should be groups) > include in token scope (on) > save.
+  > keycloak admin console left tab > client scopes > create client scope > name (should be groups) > include in token scope (on) > save.
 
 
 25. Once you've created the client scope you can now add a Token Mapper which will add the groups claim to the token when the client requests the groups scope. In the Tab "Mappers", click on "Configure a new mapper" and choose Group Membership. Make sure to set the Name as well as the Token Claim Name to groups. Also disable the "Full group path".
