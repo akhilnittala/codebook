@@ -237,10 +237,7 @@ akhilnittala@nakhil-mac ~ %
 19. create one client as below:
 
 ### > before adding urls get the route url for argocd-server using "oc get routes -n openshift-gitops". copy it and use it in below parameters after https:// 
-
-   **```python
     left side bar > clients > create client > client id <argocd> > client authentication (on) > root url (https://openshift-gitops-server-openshift-gitops.apps.ci-ln-vq7yx72-76ef8.aws-2.ci.openshift.org) > home url (/applications) > valid redirect urls (https://openshift-gitops-server-openshift-gitops.apps.ci-ln-vq7yx72-76ef8.aws-2.ci.openshift.org/auth/callback) > valid post logout uri (https://openshift-gitops-server-openshift-gitops.apps.ci-ln-vq7yx72-76ef8.aws-2.ci.openshift.org/applications) > web origin (+)
-   ```**
 
 20. save the client.
 21. patch the secret in openshift-gitops namespace with client credentials value
@@ -265,45 +262,36 @@ oc get secret argocd-secret -n openshift-gitops -o jsonpath='{.data.oidc\.keyclo
 # create groups claimm, user, password in keycloak admin console
 24. In order for ArgoCD to provide the groups the user is in we need to configure a groups claim that can be included in the authentication token. To do this we'll start by creating a new Client Scope called groups.
 
-**```python
 keycloak admin console left tab > client scopes > create client scope > name (should be groups) > include in token scope (on) > save.
-```**
 
 
 25. Once you've created the client scope you can now add a Token Mapper which will add the groups claim to the token when the client requests the groups scope. In the Tab "Mappers", click on "Configure a new mapper" and choose Group Membership. Make sure to set the Name as well as the Token Claim Name to groups. Also disable the "Full group path".
 
-**```python
 mappers > configure a new mapper > mapper type (group membership) > name (groups) > token claim name (groups) > full group path toggle (off) > save.
-```**
 
 26. We can now configure the client to provide the groups scope. Go back to the client we've created earlier and go to the Tab "Client Scopes". Click on "Add client scope", choose the groups scope and add it either to the Default or to the Optional Client Scope. If you put it in the Optional category you will need to make sure that ArgoCD requests the scope in its OIDC configuration. Since we will always want group information, I recommend using the Default category.
 
 27. create users.
-**```python
+
 left navigation tab > users > create new user > name (nakhil) > email ( nakhil@redhat.com) > first name (akhil) > last name (nittala) > create.
-```**
 
 28. create password.
 
-**```python
 from created users > credentials tab > set password > click password and confirm password > temporary toggle off > save password.
-```**
 
 29. create groups
-**```python
+
 left tab > groups > create group > name (argocd) > create group
-```**
+
 
 30. add group to users
-**```python
+
 left tab > users > groups > join group > argocd group > join > save.
-```**
 
 31. add groups to argocd cm
-**```python
+
 policy.csv: |
     g, argocd, role:admin
-```**
 
 ```sh
 kubectl edit cm argocd-rbac-cm -n openshift-gitops
